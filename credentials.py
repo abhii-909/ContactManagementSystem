@@ -1,5 +1,5 @@
 # User Credentials
 host = 'localhost'
-user = 'Enter Username'
-password = 'Enter Password'
+user = 'root'
+password = 'mypassword'
 database = 'contact_management'
