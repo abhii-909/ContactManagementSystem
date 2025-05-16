@@ -14,3 +14,9 @@ def IsValidEmail(email):
         return True
     else:
         return False
+    
+def is_valid_name(name):
+    return name.replace(" ", "").isalpha() and name.strip() != ""
+
+def is_valid_phone(phone):
+    return phone.isdigit() and len(phone) == 10

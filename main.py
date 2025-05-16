@@ -6,6 +6,7 @@ import pymysql
 import custom as cs
 import credentials as cr
 import validemail as vl
+from validemail import is_valid_name, is_valid_phone
 
 class Management:
     def __init__(self, root):
@@ -205,6 +206,29 @@ class Management:
                 connection.close()
             except Exception as e:
                 messagebox.showerror("Error!",f"Error due to {str(e)}",parent=self.window)
+        
+    # def SaveUpdatedData(self):
+    #     try:
+    #         connection = pymysql.connect(host=self.host, user=self.user, password=self.password, database=self.database)
+    #         curs = connection.cursor()
+    #         # Replace the below with actual field values from your entry widgets
+    #         name = self.entry_name.get()
+    #         email = self.entry_email.get()
+    #         contact = self.entry_contact.get()
+    #         address = self.entry_address.get()
+            
+    #         curs.execute("""
+    #             UPDATE contact_register 
+    #             SET name=%s, email=%s, address=%s 
+    #             WHERE contact=%s
+    #         """, (name, email, address, contact))
+            
+    #         connection.commit()
+    #         connection.close()
+    #         messagebox.showinfo("Success", "Record updated successfully!")
+    #         self.DisplayData()  # Refresh table
+    #     except Exception as e:
+    #         messagebox.showerror("Error!", f"Error due to {str(e)}", parent=self.window)
 
     #This function is used to delete a selected record
     def DeleteData(self):
@@ -297,6 +321,16 @@ class Management:
     
     #This function adds a new record
     def Submit(self):
+        if not vl.is_valid_name(self.name_entry.get()):
+            messagebox.showerror("Error!", "Please enter a valid first name (only spaces no special characters allowed)", parent=self.window)
+            return
+        if not vl.is_valid_name(self.surname_entry.get()):
+            messagebox.showerror("Error!", "Please enter a valid surname (only spaces no special characters allowed)", parent=self.window)
+            return
+        if not vl.is_valid_phone(self.contact_entry.get()):
+            messagebox.showerror("Error!", "Please enter a valid contact number (10 digits)", parent=self.window)
+            return
+
         if self.name_entry.get() == "" or self.surname_entry.get() == "" or self.addr_entry.get() == "" or self.contact_entry.get() == "" or self.email_entry.get() == "":
             messagebox.showerror("Error!","Sorry!, All fields are required",parent=self.window)
         else:
